@@ -1,0 +1,138 @@
+package com.example.TicTacToe;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Lara();
+    }
+    int i=1,w=0,x=0,z=0;
+    public void Lara(){
+        final Button b1 = (Button)findViewById(R.id.b1);
+        final Button b2 = (Button)findViewById(R.id.b2);
+        final Button b3 = (Button)findViewById(R.id.b3);
+        final Button b4 = (Button)findViewById(R.id.b4);
+        final Button b5 = (Button)findViewById(R.id.b5);
+        final Button b6 = (Button)findViewById(R.id.b6);
+        final Button b7 = (Button)findViewById(R.id.b7);
+        final Button b8 = (Button)findViewById(R.id.b8);
+        final Button b9 = (Button)findViewById(R.id.b9);
+        final Button hardReset = (Button)findViewById(R.id.hardReset);
+        
+        
+        final TextView tv = (TextView)findViewById(R.id.tv); 
+
+ i=1;
+
+
+
+        tv.setText("Ход Крестика");
+        
+        View.OnClickListener vocl=new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Button b0 = (Button)findViewById(v.getId());    //получаем здесь ту кнопку которую нажал
+                String s=(String)b0.getText();                  // получаю текст кнопки
+                if(s=="") {                                     // проверяю пустая кнопка или нет
+                                                                // <=== кнопка пустая
+                    if ((i % 2) == 0) {
+                        s = "0";                                // если остаток от деления счетчика == 0 то присвоить s="0"
+                        tv.setText("Ход Крестика");
+                    }
+                    else {
+                        s = "X";                               // иначе s="Х"
+                    tv.setText("Ход Нолика");
+                    }
+                    i++;
+                }
+                b0.setText(s);                                  // учтановить текст к
+
+                hardReset.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        tv.setText("Игра была обнулена");
+                        b1.setText("");
+                        b2.setText("");
+                        b3.setText("");
+                        b4.setText("");
+                        b5.setText("");
+                        b6.setText("");
+                        b7.setText("");
+                        b8.setText("");
+                        b9.setText("");
+                        i=1;
+                        x=0;
+                    }
+
+
+                });
+
+                        //Выйгрышные комбиниции
+                s=(String)b1.getText()+(String)b2.getText()+(String)b3.getText(); if(s.equals("XXX") )x=1; if ( s.equals("000")) w=1;
+                s=(String)b4.getText()+(String)b5.getText()+(String)b6.getText(); if(s.equals("XXX") )x=1; if ( s.equals("000")) w=1;
+                s=(String)b7.getText()+(String)b8.getText()+(String)b9.getText(); if(s.equals("XXX") )x=1; if ( s.equals("000")) w=1;
+
+                s=(String)b1.getText()+(String)b4.getText()+(String)b7.getText(); if(s.equals("XXX") )x=1; if ( s.equals("000")) w=1;
+                s=(String)b2.getText()+(String)b5.getText()+(String)b8.getText(); if(s.equals("XXX") )x=1; if ( s.equals("000")) w=1;
+                s=(String)b3.getText()+(String)b6.getText()+(String)b9.getText(); if(s.equals("XXX") )x=1; if ( s.equals("000")) w=1;
+
+                s=(String)b1.getText()+(String)b5.getText()+(String)b9.getText(); if(s.equals("XXX") )x=1; if ( s.equals("000")) w=1;
+                s=(String)b3.getText()+(String)b5.getText()+(String)b7.getText(); if(s.equals("XXX") )x=1; if ( s.equals("000")) w=1;
+
+                
+
+                if(w==1)                                        //Обнуления за счёт победы Нолика
+                {
+                    tv.setText("Победил Нолик");
+                    b1.setText("");
+                    b2.setText("");
+                    b3.setText("");
+                    b4.setText("");
+                    b5.setText("");
+                    b6.setText("");
+                    b7.setText("");
+                    b8.setText("");
+                    b9.setText("");
+                    i=1;
+                    w=0;
+                }
+
+                if(x==1)                                        //Обнуления за счёт победы Крестика
+                {
+                    tv.setText("Победил Крестик");
+                    b1.setText("");
+                    b2.setText("");
+                    b3.setText("");
+                    b4.setText("");
+                    b5.setText("");
+                    b6.setText("");
+                    b7.setText("");
+                    b8.setText("");
+                    b9.setText("");
+                    i=1;
+                    x=0;
+                }
+
+
+            }
+        };
+
+        b1.setOnClickListener(vocl);
+        b2.setOnClickListener(vocl);
+        b3.setOnClickListener(vocl);
+        b4.setOnClickListener(vocl);
+        b5.setOnClickListener(vocl);
+        b6.setOnClickListener(vocl);
+        b7.setOnClickListener(vocl);
+        b8.setOnClickListener(vocl);
+        b9.setOnClickListener(vocl);
+    }
+}
